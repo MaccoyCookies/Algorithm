@@ -55,9 +55,9 @@ public void dfs(TreeNode root) {
 }
 ```
 
-![image-20200822165544291](./img/image-20200822165544291.png)
+![image-20200822165544291](img/image-20200822165544291.png)
 
-![image-20200822165709120](./img/image-20200822165709120.png)
+![image-20200822165709120](img/image-20200822165709120.png)
 
 #### Breadth First Search
 
@@ -83,11 +83,11 @@ public void bfs(TreeNode root)  {
 }
 ```
 
-![image-20200822170021981](./img/image-20200822170021981.png)
+![image-20200822170021981](img/image-20200822170021981.png)
 
 #### 顺序区别
 
-![image-20200822170047632](./img/image-20200822170047632.png)
+![image-20200822170047632](img/image-20200822170047632.png)
 
 ### 贪心算法		
 
