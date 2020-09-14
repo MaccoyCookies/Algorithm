@@ -206,5 +206,147 @@ public void bfs(TreeNode root) {
 
 
 
+### 作业
+
+#### 单词搜索 II - 复杂度分析
+
+> 以下面这个代码为分析
+>
+> 1. Trie时间复杂度为O(n)
+> 2. 遍历字母二维网格 时间复杂度为O(n^2)
+> 3. DFS延伸复杂度
+>     1. 四连通 每次四个方向
+>     2. 然后第一次延伸出去之后 每次再延伸三个反向(不能选取重复字母 不会往回) - 由于是第二次延伸开始 所以需要延伸的长度是 单词长度- 1
+>     3. 然后延伸的层数是单词长度  Length -> L
+>     4. 总结 4 * 3 ^ (L - 1)  => 4^L
+>
+> 总结 - O(n^3 - 4^L)
+
+```java
+class Solution {
+    class Trie {
+        Trie[] next;
+        String word;
+        boolean isEnd = false;
+
+        public Trie() {
+            this.next = new Trie[26];
+        }
+
+        public void insert(String word) {
+            Trie cur = this;
+            for (char c : word.toCharArray()) {
+                if (cur.next[c - 'a'] == null) {
+                    cur.next[c - 'a'] = new Trie();
+                }
+                cur = cur.next[c - 'a'];
+            }
+            cur.word = word;
+            cur.setEnd();
+        }
+
+        public boolean search(String word) {
+            Trie cur = this;
+            for (char c : word.toCharArray()) {
+                if (cur.next[c - 'a'] == null) return false;
+                cur = cur.next[c - 'a'];
+            }
+            return cur.isEnd();
+        }
+
+        public boolean startsWith(String prefix) {
+            Trie cur = this;
+            for (char c : prefix.toCharArray()) {
+                if (cur.next[c - 'a'] == null) return false;
+                cur = cur.next[c - 'a'];
+            }
+            return true;
+        }
+
+    }
+    int[][] direction = new int[][]{
+            {0, -1},
+            {-1, 0},
+            {0, 1},
+            {1, 0}
+    };
+    public List<String> findWords(char[][] board, String[] words) {
+        List<String> res = new ArrayList<>();
+        Trie root = new Trie();
+        for (String word : words) {
+            root.insert(word);            
+        }
+        int m = board.length;
+            int n = board[0].length;
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (root.next[board[i][j] - 'a'] != null) {
+                        dfs(i, j, root, board, res);
+                    }
+                }
+            }
+            return res;
+    }
+    
+    private void dfs(int i, int j, Trie root, char[][] board, List<String> res) {
+        // terminator
+        char c = board[i][j];
+        Trie cur = root.next[c - 'a'];
+        if (cur == null) return;
+        if (cur.word != null) {
+            res.add(cur.word);
+            cur.word = null;
+        }
+        // process
+        board[i][j] = '#';
+        for (int[] ints : direction) {
+            int x = i + ints[0];
+            int y = j + ints[1];
+            if (x < 0 || x >= board.length || y < 0 || y >= board[0].length || board[x][y] == '#') continue;
+            // drill down
+            dfs(x, y, cur, board, res);
+        }
+        // reverse states
+        board[i][j] = c;
+    }
+}
+```
+
+#### 双向BFS代码模板
+
+```java
+public void doubleBFS(String begin, String end, Set<String> list) {
+   	// corner
+    if (!list.contains(end)) return;
+    // init
+    Set<String> beginSet = new HashSet<>();
+    Set<String> endSet = new HashSet<>();
+    Set<String> visited = new HashSet<>();
+    beginSet.add(begin);
+    endSet.add(end);
+    
+    while (!beginSet.isEmpty() && !endSet.isEmpty()) {
+        // Less choose
+        if (beginSet.size() > endSet.size()) {
+            Set<String> temp = beginSet;
+            beginSet = endSet;
+            endSet = temp;
+        }
+		       
+        // process
+    	    // visited
+	        // push
+        // generate final result
+    }
+    // return result
+}
+```
+
+
+
+
+
+
+
 
 
