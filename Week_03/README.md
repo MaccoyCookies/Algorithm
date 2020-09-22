@@ -95,14 +95,15 @@ private static int divide_conquer(Problem problem, ) {
         int res = process_last_result();
         return res;     
     }
-    // process current logic 
+    // prepare data
     subProblems = split_problem(problem);
+    // conquer subproblems
 	res0 = divide_conquer(subProblems[0]);
 	res1 = divide_conquer(subProblems[1]);
-    // merge 
+    // process final result
 	result = process_result(res0, res1);
-	// restore states
     return result;
+	// restore states
 ```
 
 ### Backtracking
