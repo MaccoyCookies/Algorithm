@@ -1,5 +1,3 @@
-学习笔记
-
 ### Hash table
 
 <u>**Hash - Set - Map**</u>

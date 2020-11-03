@@ -1,5 +1,3 @@
-学习使我快乐!
-
 #### *API查阅*
 
 ​	Google 搜索 "api language version" - "stack java 8"
